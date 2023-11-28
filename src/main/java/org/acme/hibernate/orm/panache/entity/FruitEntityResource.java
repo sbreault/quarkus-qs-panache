@@ -67,6 +67,22 @@ public class FruitEntityResource {
         }
     }    
 
+    //BreaultS: range example
+    @GET
+    @Path("range/{maxItemId}")
+    public List<FruitEntity> getRangeOfFruit(Integer maxItemId) {
+        PanacheQuery<FruitEntity> fruits = FruitEntity.findAll();
+        
+        if(fruits != null){
+            fruits.range(0, maxItemId - 1); //subtract 1 because of zero indexing
+
+            return fruits.list();
+        }else{
+            //error
+            throw new WebApplicationException("Max item id " + maxItemId + " invalid.", 404);
+        }
+    }  
+
     //BreaultS: named query example
     @GET
     @Path("name/{name}")
