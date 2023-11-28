@@ -22,12 +22,20 @@ public class FruitEntity extends PanacheEntity {
     @Column(length = 40, unique = true)
     public String name;
 
+    @Column(length = 40)
+    public String sku;
+
     public FruitEntity() {
     }
 
-    public FruitEntity(String name) {
+    //public FruitEntity(String name) {
+    //    this.name = name;
+    //}
+
+    public FruitEntity(String name, String sku) {
         this.name = name;
-    }
+        this.sku = sku;
+    }    
 
     public static FruitEntity findByName(String name){
         return find("#FruitEntity.getByName", name).firstResult();

@@ -65,7 +65,14 @@ public class FruitEntityResource {
             //error
             throw new WebApplicationException("Page item count " + itemCount + " invalid.", 404);
         }
-    }    
+    }   
+    
+    //BreaultS: sort by sku example
+    @GET
+    @Path("bysku")    
+    public List<FruitEntity> getAllSortBySku(){
+        return FruitEntity.listAll(Sort.by("sku"));
+    }
 
     //BreaultS: range example
     @GET
@@ -100,6 +107,8 @@ public class FruitEntityResource {
         if (fruit.id != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
+
+        if(fruit.sku == null) fruit.sku = java.util.UUID.randomUUID().toString().substring(0, 8);
 
         fruit.persist();
         return Response.ok(fruit).status(201).build();
